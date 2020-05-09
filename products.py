@@ -1,33 +1,27 @@
 import os
-# check file
+# check file and read file
+products =[]
 if os.path.isfile('products.csv'):
 	print("There's your file!")
+	with open('products.csv', 'r', encoding = 'utf-8') as f:
+		for line in f:
+			if 'Product,Price' in line:
+				continue
+			name, price = line.strip().split(',')
+			products.append([name, price])
 else:
 	print("No file exists.")
-
-# read fil 
-products =[]
-with open('products.csv', 'r', encoding = 'utf-8') as f:
-	for line in f:
-		if 'product, price' in line:
-			continue
-		name, price = line.strip().split(',')
 		
-
-# input file
+# user inputs file
 while True:
 	name = input('Enter the name of product: ')
 	if name == 'q':
 		break
 	price = input('Enter the price: ')
 	price = int(price)
-	products.append([name, price])
-	# p = []
-	# p.append(name)
-	# p.append(price)
-	# products.append(p)
+	products.append([name,price])
 
-#print each product
+# print each product
 for p in products:
 	print('The price of', p[0], 'is $', p[1])
 
